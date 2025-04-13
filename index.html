@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LuisaIAgent Bot Guide</title>
+    <style>
+        :root {
+            --primary-color: #ff69b4;
+            --secondary-color: #c71585;
+            --accent-color: #dda0dd;
+            --bg-gradient: linear-gradient(180deg, #f8e6f3, #e6e6fa);
+            --text-color: #4a2c00;
+            --success-bg: #90ee90;
+            --error-bg: #ffcccb;
+            --highlight-bg: #fffacd;
+        }
+        body {
+            font-family: 'Comic Sans MS', 'Arial', sans-serif;
+            margin: 0;
+            padding: 15px;
+            background: var(--bg-gradient);
+            color: var(--text-color);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            font-size: 26px;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: var(--secondary-color);
+            font-size: 20px;
+            margin: 15px 0 10px;
+            border-left: 4px solid var(--accent-color);
+            padding-left: 10px;
+        }
+        p {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+        #status {
+            text-align: center;
+            font-size: 16px;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        #userInfo {
+            background: #fffaf0;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px dashed var(--accent-color);
+            text-align: center;
+            animation: fadeIn 0.5s ease-in;
+        }
+        #userInfo p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+        .lang-toggle {
+            text-align: center;
+            margin: 10px 0;
+        }
+        .lang-toggle button {
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: none;
+            background: var(--primary-color);
+            color: #fff;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s;
+        }
+        .lang-toggle button:hover {
+            background: #ff85c2;
+        }
+        .lang-toggle button.active {
+            background: var(--secondary-color);
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .command-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            background: #fffaf0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .command-table th, .command-table td {
+            border: 1px solid var(--accent-color);
+            padding: 10px;
+            font-size: 14px;
+            text-align: left;
+        }
+        .command-table th {
+            background: var(--accent-color);
+            color: #fff;
+        }
+        .command-table td {
+            background: #fff;
+        }
+        .command-table tr {
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .command-table tr:hover {
+            background: var(--highlight-bg);
+        }
+        .command-details {
+            display: none;
+            padding: 10px;
+            background: #f0e68c;
+            border-radius: 6px;
+            margin-top: 5px;
+            font-size: 13px;
+        }
+        .success {
+            background: var(--success-bg);
+            color: #006400;
+        }
+        .error {
+            background: var(--error-bg);
+            color: #8b0000;
+        }
+        .hidden {
+            display: none;
+        }
+        .luisa-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://i.imgur.com/5vXz7qS.png') no-repeat top center;
+            background-size: 120px;
+            opacity: 0.08;
+            z-index: -1;
+        }
+        .paw-icon::before {
+            content: '🐾 ';
+            font-size: 18px;
+        }
+        .bone-icon::before {
+            content: '💸 ';
+            font-size: 18px;
+        }
+        .tip-box {
+            background: var(--highlight-bg);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #ff8c00;
+            font-size: 14px;
+        }
+        code {
+            background: #f0e68c;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: var(--secondary-color);
+        }
+        .loader {
+            display: none;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            margin: 10px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 400px) {
+            .container {
+                padding: 12px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            h2 {
+                font-size: 18px;
+            }
+            .command-table th, .command-table td {
+                font-size: 12px;
+                padding: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="luisa-bg"></div>
+        <h1 id="title">LuisaIAgent Bot Guide</h1>
+        <div id="status">Loading...</div>
+        <div id="userInfo">
+            <h2 class="paw-icon">Your Profile</h2>
+            <p><b>Username</b>: <span id="userName">Loading...</span></p>
+            <p><b>User ID</b>: <span id="userId">Loading...</span></p>
+            <p><b>First Name</b>: <span id="firstName">Loading...</span></p>
+            <p><b>Last Name</b>: <span id="lastName">Loading...</span></p>
+        </div>
+        <div class="lang-toggle">
+            <button id="lang-en" onclick="switchLanguage('en')">English</button>
+            <button id="lang-zh" onclick="switchLanguage('zh')">中文</button>
+        </div>
+        <div id="loader" class="loader"></div>
+        <div id="content-en" class="content">
+            <div class="section">
+                <h2 class="paw-icon">Welcome to LuisaIAgent Bot!</h2>
+                <p>Hey there! <b>@luisaiagent_bot</b> lets you trade tokens, deploy meme coins with 1000 BONE or 10000 BONE liquidity pools, and manage your wallet on Shibarium. Your username, <b><span id="userNameInlineEn">Loading...</span></b>, gets you started!</p>
+            </div>
+            <div class="section">
+                <h2 class="paw-icon">Get Started</h2>
+                <p>1. Chat with <b>@luisaiagent_bot</b> in Telegram.</p>
+                <p>2. Your wallet address is synced from <b>@ShibFun_bot</b> (updates in ~24 hours, no need to create one).</p>
+                <p>3. Use commands like <code>/buys</code> or <code>/sells</code> to trade!</p>
+            </div>
+            <div class="section">
+                <h2 class="bone-icon">Features</h2>
+                <p><b>Wallet Management</b></p>
+                <p>- Wallet Sync: Address is auto-fetched from <b>@ShibFun_bot</b>, updates in ~24 hours.</p>
+                <p>- Check Balance: Use <code>/balance</code> to see your BONE and tokens.</p>
+                <p><b>Trading</b></p>
+                <p>- Buy Tokens: Grab tokens with <code>/buys <amount> BONE <address></code> (e.g., <code>/buys 1 BONE 0x...</code>).</p>
+                <p>- Sell Tokens: Swap back with <code>/sells <amount> <address></code> (e.g., <code>/sells 100 0x...</code>).</p>
+                <p><b>Meme Coins</b></p>
+                <p>- 1000 BONE Pool: Deploy with <code>/deploylow Name Symbol</code> (e.g., <code>/deploylow MyCoin MC</code>). Bot auto-adds liquidity.</p>
+                <p>- 10000 BONE Pool: Deploy with <code>/deployhigh Name Symbol</code> (e.g., <code>/deployhigh BigCoin BC</code>). Bot auto-adds liquidity.</p>
+                <p>- Add Liquidity: Use <code>/addlow</code> for 1000 BONE pool or <code>/addhigh</code> for 10000 BONE pool if needed.</p>
+                <p>- Claim Fees: Get fees with <code>/claimlow</code> or <code>/claimhigh</code>.</p>
+                <p><b>Profile</b></p>
+                <p>- User Info: Check stats with <code>/myinfo</code>.</p>
+            </div>
+            <div class="section">
+                <h2 class="paw-icon">Commands</h2>
+                <table class="command-table">
+                    <tr><th>Command</th><th>What It Does</th></tr>
+                    <tr data-details="Buy tokens with BONE (e.g., /buys 1 BONE 0x...)."><td><code>/buys <amount> BONE <address></code></td><td>Buy tokens</td></tr>
+                    <tr data-details="Sell tokens for BONE (e.g., /sells 100 0x...)."><td><code>/sells <amount> <address></code></td><td>Sell tokens</td></tr>
+                    <tr data-details="Check your BONE and token balances."><td><code>/balance</code></td><td>See balances</td></tr>
+                    <tr data-details="Deploy a meme coin with 1000 BONE liquidity pool; bot auto-adds liquidity (e.g., /deploylow MyCoin MC)."><td><code>/deploylow <name> <symbol></code></td><td>Deploy 1000 BONE pool coin</td></tr>
+                    <tr data-details="Deploy a meme coin with 10000 BONE liquidity pool; bot auto-adds liquidity (e.g., /deployhigh BigCoin BC)."><td><code>/deployhigh <name> <symbol></code></td><td>Deploy 10000 BONE pool coin</td></tr>
+                    <tr data-details="Claim fees from your 1000 BONE pool coin."><td><code>/claimlow</code></td><td>Claim 1000 BONE pool fees</td></tr>
+                    <tr data-details="Claim fees from your 10000 BONE pool coin."><td><code>/claimhigh</code></td><td>Claim 10000 BONE pool fees</td></tr>
+                    <tr data-details="View your wallet and coin stats."><td><code>/myinfo</code></td><td>View profile</td></tr>
+                    <tr data-details="List all available commands."><td><code>/help</code></td><td>Show all commands</td></tr>
+                </table>
+            </div>
+            <div class="section">
+                <h2 class="bone-icon">Tips</h2>
+                <div class="tip-box">
+                    <p>- Verify token addresses before trading!</p>
+                    <p>- Wallet syncs from <b>@ShibFun_bot</b>, allow ~24 hours for updates.</p>
+                    <p>- Use <code>/help</code> in Telegram for quick help.</p>
+                    <p>- Contact admins via <b>@luisaiagent_bot</b> if stuck!</p>
+                </div>
+            </div>
+        </div>
+        <div id="content-zh" class="content hidden">
+            <div class="section">
+                <h2 class="paw-icon">欢迎使用 LuisaIAgent Bot！</h2>
+                <p>嗨！<b>@luisaiagent_bot</b> 让你在 Shibarium 上交易代币、部署 1000 BONE 或 10000 BONE 流动性池的迷因币、管理钱包。你的用户名 <b><span id="userNameInlineZh">加载中...</span></b> 开启冒险！</p>
+            </div>
+            <div class="section">
+                <h2 class="paw-icon">开始使用</h2>
+                <p>1. 在 Telegram 中与 <b>@luisaiagent_bot</b> 聊天。</p>
+                <p>2. 钱包地址从 <b>@ShibFun_bot</b> 自动同步（约 24 小时更新，无需创建）。</p>
+                <p>3. 使用 <code>/buys</code> 或 <code>/sells</code> 开始交易！</p>
+            </div>
+            <div class="section">
+                <h2 class="bone-icon">功能</h2>
+                <p><b>钱包管理</b></p>
+                <p>- 钱包同步：地址从 <b>@ShibFun_bot</b> 自动获取，约 24 小时更新。</p>
+                <p>- 查看余额：用 <code>/balance</code> 检查 BONE 和代币。</p>
+                <p><b>交易</b></p>
+                <p>- 购买代币：用 <code>/buys <数量> BONE <地址></code>（例如：<code>/buys 1 BONE 0x...</code>）。</p>
+                <p>- 出售代币：用 <code>/sells <数量> <地址></code>（例如：<code>/sells 100 0x...</code>）。</p>
+                <p><b>迷因币</b></p>
+                <p>- 1000 BONE 池子：用 <code>/deploylow 名称 符号</code> 部署（例如：<code>/deploylow MyCoin MC</code>），机器人自动添加流动性。</p>
+                <p>- 10000 BONE 池子：用 <code>/deployhigh 名称 符号</code> 部署（例如：<code>/deployhigh BigCoin BC</code>），机器人自动添加流动性。</p>
+                <p>- 添加流动性：如需额外添加，用 <code>/addlow</code> 为 1000 BONE 池子或 <code>/addhigh</code> 为 10000 BONE 池子。</p>
+                <p>- 领取费用：用 <code>/claimlow</code> 或 <code>/claimhigh</code> 获取费用。</p>
+                <p><b>个人资料</b></p>
+                <p>- 用户信息：用 <code>/myinfo</code> 查看统计信息。</p>
+            </div>
+            <div class="section">
+                <h2 class="paw-icon">命令列表</h2>
+                <table class="command-table">
+                    <tr><th>命令</th><th>功能</th></tr>
+                    <tr data-details="用 BONE 购买代币（例如：/buys 1 BONE 0x...）。"><td><code>/buys <数量> BONE <地址></code></td><td>购买代币</td></tr>
+                    <tr data-details="出售代币换 BONE（例如：/sells 100 0x...）。"><td><code>/sells <数量> <地址></code></td><td>出售代币</td></tr>
+                    <tr data-details="查看你的 BONE 和代币余额。"><td><code>/balance</code></td><td>查看余额</td></tr>
+                    <tr data-details="部署 1000 BONE 流动性池的迷因币，机器人自动添加流动性（例如：/deploylow MyCoin MC）。"><td><code>/deploylow <名称> <符号></code></td><td>部署 1000 BONE 池子代币</td></tr>
+                    <tr data-details="部署 10000 BONE 流动性池的迷因币，机器人自动添加流动性（例如：/deployhigh BigCoin BC）。"><td><code>/deployhigh <名称> <符号></code></td><td>部署 10000 BONE 池子代币</td></tr>
+                    <tr data-details="领取 1000 BONE 池子代币的费用。"><td><code>/claimlow</code></td><td>领取 1000 BONE 池子费用</td></tr>
+                    <tr data-details="领取 10000 BONE 池子代币的费用。"><td><code>/claimhigh</code></td><td>领取 10000 BONE 池子费用</td></tr>
+                    <tr data-details="查看你的钱包和代币统计信息。"><td><code>/myinfo</code></td><td>查看资料</td></tr>
+                    <tr data-details="列出所有可用命令。"><td><code>/help</code></td><td>显示所有命令</td></tr>
+                </table>
+            </div>
+            <div class="section">
+                <h2 class="bone-icon">小贴士</h2>
+                <div class="tip-box">
+                    <p>- 交易前核对代币地址！</p>
+                    <p>- 钱包从 <b>@ShibFun_bot</b> 同步，需约 24 小时更新。</p>
+                    <p>- 在 Telegram 用 <code>/help</code> 获取帮助。</p>
+                    <p>- 遇到问题？联系 <b>@luisaiagent_bot</b> 管理员！</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.ready();
+        tg.expand();
+        const UI = {
+            setStatus(message, isError = false) {
+                const statusDiv = document.getElementById("status");
+                statusDiv.textContent = message;
+                statusDiv.className = isError ? "error" : "success";
+            },
+            toggleLoading(isLoading) {
+                document.getElementById("loader").style.display = isLoading ? "block" : "none";
+            },
+            updateInfo(key, value) {
+                const element = document.getElementById(key);
+                if (element) element.textContent = value;
+            }
+        };
+        async function init() {
+            UI.toggleLoading(true);
+            try {
+                if (!tg.initDataUnsafe?.user) {
+                    throw new Error("Please open in Telegram.");
+                }
+                const user = tg.initDataUnsafe.user;
+                UI.updateInfo("userId", user.id);
+                UI.updateInfo("userName", user.username ? `@${user.username}` : "Not set");
+                UI.updateInfo("firstName", user.first_name || "Not set");
+                UI.updateInfo("lastName", user.last_name || "Not set");
+                UI.updateInfo("userNameInlineEn", user.username ? `@${user.username}` : "Not set");
+                UI.updateInfo("userNameInlineZh", user.username ? `@${user.username}` : "未设置");
+                UI.setStatus("Ready to Explore!");
+            } catch (error) {
+                UI.setStatus(`Oops: ${error.message}`, true);
+            } finally {
+                UI.toggleLoading(false);
+            }
+        }
+        function switchLanguage(lang) {
+            const enContent = document.getElementById("content-en");
+            const zhContent = document.getElementById("content-zh");
+            const title = document.getElementById("title");
+            const langEnBtn = document.getElementById("lang-en");
+            const langZhBtn = document.getElementById("lang-zh");
+            if (lang === "en") {
+                enContent.classList.remove("hidden");
+                zhContent.classList.add("hidden");
+                title.textContent = "LuisaIAgent Bot Guide";
+                langEnBtn.classList.add("active");
+                langZhBtn.classList.remove("active");
+            } else {
+                enContent.classList.add("hidden");
+                zhContent.classList.remove("hidden");
+                title.textContent = "LuisaIAgent Bot 使用指南";
+                langEnBtn.classList.remove("active");
+                langZhBtn.classList.add("active");
+            }
+        }
+        function setupCommandDetails() {
+            const rows = document.querySelectorAll(".command-table tr");
+            rows.forEach(row => {
+                if (!row.dataset.details) return;
+                row.addEventListener("click", () => {
+                    let detailsDiv = row.querySelector(".command-details");
+                    if (!detailsDiv) {
+                        detailsDiv = document.createElement("div");
+                        detailsDiv.className = "command-details";
+                        detailsDiv.textContent = row.dataset.details;
+                        row.cells[0].appendChild(detailsDiv);
+                    }
+                    detailsDiv.style.display = detailsDiv.style.display === "block" ? "none" : "block";
+                });
+            });
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            init();
+            switchLanguage("en");
+            setupCommandDetails();
+            tg.MainButton.setText("Close").show().onClick(() => tg.close());
+        });
+    </script>
+</body>
+</html>
