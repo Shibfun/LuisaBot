@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LuisaIAgent Bot Guide</title>
+    <title>LuisaSwap Bot Guide</title>
     <style>
         :root {
             --primary-color: #ff69b4;
@@ -216,7 +216,7 @@
 <body>
     <div class="container">
         <div class="luisa-bg"></div>
-        <h1 id="title">LuisaIAgent Bot Guide</h1>
+        <h1 id="title">LuisaSwap Bot Guide</h1>
         <div id="status">Loading...</div>
         <div id="userInfo">
             <h2 class="paw-icon">Your Profile</h2>
@@ -232,80 +232,94 @@
         <div id="loader" class="loader"></div>
         <div id="content-en" class="content">
             <div class="section">
-                <h2 class="paw-icon">Welcome to LuisaIAgent Bot!</h2>
-                <p>Hey there! <b>@luisaiagent_bot</b> lets you trade tokens, deploy meme coins with 1000 BONE or 10000 BONE liquidity pools, and manage your wallet on Shibarium. Your username, <b><span id="userNameInlineEn">Loading...</span></b>, gets you started!</p>
+                <h2 class="paw-icon">Welcome to LuisaSwap Bot!</h2>
+                <p>Hey there! <b>@luisaiagent_bot</b> lets you trade tokens, deploy meme coins, and manage your wallet on Shibarium. Your username, <b><span id="userNameInlineEn">Loading...</span></b>, gets you started!</p>
             </div>
             <div class="section">
                 <h2 class="paw-icon">Get Started</h2>
                 <p>1. Chat with <b>@luisaiagent_bot</b> in Telegram.</p>
-                <p>2. Your wallet address is synced from <b>@ShibFun_bot</b> (updates in ~24 hours, no need to create one).</p>
-                <p>3. Use commands like <code>/buys</code> or <code>/sells</code> to trade!</p>
+                <p>2. Import your wallet private key via the bot's interface.</p>
+                <p>3. Use commands like <code>/buys</code>, <code>/sells</code>, or <code>@username swap</code> to trade!</p>
             </div>
             <div class="section">
                 <h2 class="bone-icon">Features</h2>
                 <p><b>Wallet Management</b></p>
-                <p>- Wallet Sync: Address is auto-fetched from <b>@ShibFun_bot</b>, updates in ~24 hours.</p>
+                <p>- Wallet Import: Import your private key using the bot's settings.</p>
                 <p>- Check Balance: Use <code>/balance</code> to see your BONE and tokens.</p>
                 <p><b>Trading</b></p>
-                <p>- Buy Tokens: Grab tokens with <code>/buys <amount> BONE <address></code> (e.g., <code>/buys 1 BONE 0x...</code>).</p>
-                <p>- Sell Tokens: Swap back with <code>/sells <amount> <address></code> (e.g., <code>/sells 100 0x...</code>).</p>
+                <p>- Buy Tokens: Use <code>/buys <amount> BONE <address></code> (e.g., <code>/buys 1 BONE 0x...</code>).</p>
+                <p>- Sell Tokens: Use <code>/sells <amount> <address></code> or <code>/sells <percent>% <address></code> (e.g., <code>/sells 100 0x...</code> or <code>/sells 50% 0x...</code>).</p>
+                <p>- Swap User's Token: Buy someone's Low Meme Coin with <code>@username swap <amount> BONE</code> or High Meme Coin with <code>@username swaps <amount> BONE</code>.</p>
+                <p>- Sell User's Token: Sell someone's Low Meme Coin with <code>@username sell <percent>%</code> or High Meme Coin with <code>@username sells <percent>%</code> (100% retains 0.0001 tokens).</p>
                 <p><b>Meme Coins</b></p>
-                <p>- 1000 BONE Pool: Deploy with <code>/deploylow Name Symbol</code> (e.g., <code>/deploylow MyCoin MC</code>). Bot auto-adds liquidity.</p>
-                <p>- 10000 BONE Pool: Deploy with <code>/deployhigh Name Symbol</code> (e.g., <code>/deployhigh BigCoin BC</code>). Bot auto-adds liquidity.</p>
-                <p>- Claim Fees: Get fees with <code>/claimlow</code> or <code>/claimhigh</code>.</p>
+                <p>- Low Meme Coin: Deploy with <code>/deploylow Name Symbol</code> (e.g., <code>/deploylow MyCoin MC</code>). Bot auto-adds liquidity.</p>
+                <p>- High Meme Coin: Deploy with <code>/deployhigh Name Symbol</code> (e.g., <code>/deployhigh BigCoin BC</code>). Bot auto-adds liquidity.</p>
+                <p>- Claim Fees: Get fees with <code>/claimfeeslow</code> or <code>/claimfeeshigh</code>.</p>
                 <p><b>Profile</b></p>
-                <p>- User Info: Check stats with <code>/myinfo</code>.</p>
+                <p>- User Info: Check stats with <code>/userinfo</code>.</p>
+                <p><b>Token Management</b></p>
+                <p>- Add Token: Track tokens with <code>/addtoken <address></code>.</p>
             </div>
             <div class="section">
                 <h2 class="paw-icon">Commands</h2>
                 <table class="command-table">
                     <tr><th>Command</th><th>What It Does</th></tr>
                     <tr data-details="Buy tokens with BONE (e.g., /buys 1 BONE 0x...)."><td><code>/buys <amount> BONE <address></code></td><td>Buy tokens</td></tr>
-                    <tr data-details="Sell tokens for BONE (e.g., /sells 100 0x...)."><td><code>/sells <amount> <address></code></td><td>Sell tokens</td></tr>
+                    <tr data-details="Sell tokens for BONE (e.g., /sells 100 0x... or /sells 50% 0x...)."><td><code>/sells <amount> <address></code></td><td>Sell tokens</td></tr>
+                    <tr data-details="Sell a percentage of tokens (e.g., /sells 50% 0x..., 100% retains 0.0001 tokens)."><td><code>/sells <percent>% <address></code></td><td>Sell % of tokens</td></tr>
+                    <tr data-details="Buy someone's Low Meme Coin (e.g., @username swap 0.01 BONE)."><td><code>@username swap <amount> BONE</code></td><td>Buy Low Meme Coin</td></tr>
+                    <tr data-details="Buy someone's High Meme Coin (e.g., @username swaps 0.01 BONE)."><td><code>@username swaps <amount> BONE</code></td><td>Buy High Meme Coin</td></tr>
+                    <tr data-details="Sell % of someone's Low Meme Coin (e.g., @username sell 10%, 100% retains 0.0001 tokens)."><td><code>@username sell <percent>%</code></td><td>Sell % of Low Meme Coin</td></tr>
+                    <tr data-details="Sell % of someone's High Meme Coin (e.g., @username sells 10%, 100% retains 0.0001 tokens)."><td><code>@username sells <percent>%</code></td><td>Sell % of High Meme Coin</td></tr>
                     <tr data-details="Check your BONE and token balances."><td><code>/balance</code></td><td>See balances</td></tr>
-                    <tr data-details="Deploy a meme coin with 1000 BONE liquidity pool; bot auto-adds liquidity (e.g., /deploylow MyCoin MC)."><td><code>/deploylow <name> <symbol></code></td><td>Deploy 1000 BONE pool coin</td></tr>
-                    <tr data-details="Deploy a meme coin with 10000 BONE liquidity pool; bot auto-adds liquidity (e.g., /deployhigh BigCoin BC)."><td><code>/deployhigh <name> <symbol></code></td><td>Deploy 10000 BONE pool coin</td></tr>
-                    <tr data-details="Claim fees from your 1000 BONE pool coin."><td><code>/claimlow</code></td><td>Claim 1000 BONE pool fees</td></tr>
-                    <tr data-details="Claim fees from your 10000 BONE pool coin."><td><code>/claimhigh</code></td><td>Claim 10000 BONE pool fees</td></tr>
-                    <tr data-details="View your wallet and coin stats."><td><code>/myinfo</code></td><td>View profile</td></tr>
-                    <tr data-details="List all available commands."><td><code>/help</code></td><td>Show all commands</td></tr>
+                    <tr data-details="Deploy a Low Meme Coin; bot auto-adds liquidity (e.g., /deploylow MyCoin MC)."><td><code>/deploylow <name> <symbol></code></td><td>Deploy Low Meme Coin</td></tr>
+                    <tr data-details="Deploy a High Meme Coin; bot auto-adds liquidity (e.g., /deployhigh BigCoin BC)."><td><code>/deployhigh <name> <symbol></code></td><td>Deploy High Meme Coin</td></tr>
+                    <tr data-details="Claim fees from your Low Meme Coin."><td><code>/claimfeeslow</code></td><td>Claim Low Meme Coin fees</td></tr>
+                    <tr data-details="Claim fees from your High Meme Coin."><td><code>/claimfeeshigh</code></td><td>Claim High Meme Coin fees</td></tr>
+                    <tr data-details="Track a token (e.g., /addtoken 0x...)."><td><code>/addtoken <address></code></td><td>Add token to track</td></tr>
+                    <tr data-details="View your wallet and coin stats."><td><code>/userinfo</code></td><td>View profile</td></tr>
+                    <tr data-details="List all available commands."><td><code>/start</code></td><td>Show all commands</td></tr>
                 </table>
             </div>
             <div class="section">
                 <h2 class="bone-icon">Tips</h2>
                 <div class="tip-box">
                     <p>- Verify token addresses before trading!</p>
-                    <p>- Wallet syncs from <b>@ShibFun_bot</b>, allow ~24 hours for updates.</p>
-                    <p>- Use <code>/help</code> in Telegram for quick help.</p>
+                    <p>- Import your private key securely in the bot's settings.</p>
+                    <p>- Use <code>/start</code> in Telegram for quick help.</p>
                     <p>- Contact admins via <b>@luisaiagent_bot</b> if stuck!</p>
                 </div>
             </div>
         </div>
         <div id="content-zh" class="content hidden">
             <div class="section">
-                <h2 class="paw-icon">欢迎使用 LuisaIAgent Bot！</h2>
-                <p>嗨！<b>@luisaiagent_bot</b> 让你在 Shibarium 上交易代币、部署 1000 BONE 或 10000 BONE 流动性池的迷因币、管理钱包。你的用户名 <b><span id="userNameInlineZh">加载中...</span></b> 开启冒险！</p>
+                <h2 class="paw-icon">欢迎使用 LuisaSwap Bot！</h2>
+                <p>嗨！<b>@luisaiagent_bot</b> 让你在 Shibarium 上交易代币、部署迷因币、管理钱包。你的用户名 <b><span id="userNameInlineZh">加载中...</span></b> 开启冒险！</p>
             </div>
             <div class="section">
                 <h2 class="paw-icon">开始使用</h2>
                 <p>1. 在 Telegram 中与 <b>@luisaiagent_bot</b> 聊天。</p>
-                <p>2. 钱包地址从 <b>@ShibFun_bot</b> 自动同步（约 24 小时更新，无需创建）。</p>
-                <p>3. 使用 <code>/buys</code> 或 <code>/sells</code> 开始交易！</p>
+                <p>2. 通过机器人界面导入你的钱包私钥。</p>
+                <p>3. 使用 <code>/buys</code>、<code>/sells</code> 或 <code>@username swap</code> 开始交易！</p>
             </div>
             <div class="section">
                 <h2 class="bone-icon">功能</h2>
                 <p><b>钱包管理</b></p>
-                <p>- 钱包同步：地址从 <b>@ShibFun_bot</b> 自动获取，约 24 小时更新。</p>
+                <p>- 钱包导入：通过机器人设置导入你的私钥。</p>
                 <p>- 查看余额：用 <code>/balance</code> 检查 BONE 和代币。</p>
                 <p><b>交易</b></p>
                 <p>- 购买代币：用 <code>/buys <数量> BONE <地址></code>（例如：<code>/buys 1 BONE 0x...</code>）。</p>
-                <p>- 出售代币：用 <code>/sells <数量> <地址></code>（例如：<code>/sells 100 0x...</code>）。</p>
+                <p>- 出售代币：用 <code>/sells <数量> <地址></code> 或 <code>/sells <百分比>% <地址></code>（例如：<code>/sells 100 0x...</code> 或 <code>/sells 50% 0x...</code>）。</p>
+                <p>- 购买用户代币：用 <code>@username swap <数量> BONE</code> 购买低风险迷因币，或 <code>@username swaps <数量> BONE</code> 购买高风险迷因币。</p>
+                <p>- 出售用户代币：用 <code>@username sell <百分比>%</code> 出售低风险迷因币，或 <code>@username sells <百分比>%</code> 出售高风险迷因币（100% 保留 0.0001 代币）。</p>
                 <p><b>迷因币</b></p>
-                <p>- 1000 BONE 池子：用 <code>/deploylow 名称 符号</code> 部署（例如：<code>/deploylow MyCoin MC</code>），机器人自动添加流动性。</p>
-                <p>- 10000 BONE 池子：用 <code>/deployhigh 名称 符号</code> 部署（例如：<code>/deployhigh BigCoin BC</code>），机器人自动添加流动性。</p>
-                <p>- 领取费用：用 <code>/claimlow</code> 或 <code>/claimhigh</code> 获取费用。</p>
+                <p>- 低风险迷因币：用 <code>/deploylow 名称 符号</code> 部署（例如：<code>/deploylow MyCoin MC</code>），机器人自动添加流动性。</p>
+                <p>- 高风险迷因币：用 <code>/deployhigh 名称 符号</code> 部署（例如：<code>/deployhigh BigCoin BC</code>），机器人自动添加流动性。</p>
+                <p>- 领取费用：用 <code>/claimfeeslow</code> 或 <code>/claimfeeshigh</code> 获取费用。</p>
                 <p><b>个人资料</b></p>
-                <p>- 用户信息：用 <code>/myinfo</code> 查看统计信息。</p>
+                <p>- 用户信息：用 <code>/userinfo</code> 查看统计信息。</p>
+                <p><b>代币管理</b></p>
+                <p>- 添加代币：用 <code>/addtoken <地址></code> 跟踪代币。</p>
             </div>
             <div class="section">
                 <h2 class="paw-icon">命令列表</h2>
@@ -313,21 +327,27 @@
                     <tr><th>命令</th><th>功能</th></tr>
                     <tr data-details="用 BONE 购买代币（例如：/buys 1 BONE 0x...）。"><td><code>/buys <数量> BONE <地址></code></td><td>购买代币</td></tr>
                     <tr data-details="出售代币换 BONE（例如：/sells 100 0x...）。"><td><code>/sells <数量> <地址></code></td><td>出售代币</td></tr>
+                    <tr data-details="出售一定百分比的代币（例如：/sells 50% 0x...，100% 保留 0.0001 代币）。"><td><code>/sells <百分比>% <地址></code></td><td>出售 % 的代币</td></tr>
+                    <tr data-details="购买某人的低风险迷因币（例如：@username swap 0.01 BONE）。"><td><code>@username swap <数量> BONE</code></td><td>购买低风险迷因币</td></tr>
+                    <tr data-details="购买某人的高风险迷因币（例如：@username swaps 0.01 BONE）。"><td><code>@username swaps <数量> BONE</code></td><td>购买高风险迷因币</td></tr>
+                    <tr data-details="出售某人的低风险迷因币的 %（例如：@username sell 10%，100% 保留 0.0001 代币）。"><td><code>@username sell <百分比>%</code></td><td>出售 % 的低风险迷因币</td></tr>
+                    <tr data-details="出售某人的高风险迷因币的 %（例如：@username sells 10%，100% 保留 0.0001 代币）。"><td><code>@username sells <百分比>%</code></td><td>出售 % 的高风险迷因币</td></tr>
                     <tr data-details="查看你的 BONE 和代币余额。"><td><code>/balance</code></td><td>查看余额</td></tr>
-                    <tr data-details="部署 1000 BONE 流动性池的迷因币，机器人自动添加流动性（例如：/deploylow MyCoin MC）。"><td><code>/deploylow <名称> <符号></code></td><td>部署 1000 BONE 池子代币</td></tr>
-                    <tr data-details="部署 10000 BONE 流动性池的迷因币，机器人自动添加流动性（例如：/deployhigh BigCoin BC）。"><td><code>/deployhigh <名称> <符号></code></td><td>部署 10000 BONE 池子代币</td></tr>
-                    <tr data-details="领取 1000 BONE 池子代币的费用。"><td><code>/claimlow</code></td><td>领取 1000 BONE 池子费用</td></tr>
-                    <tr data-details="领取 10000 BONE 池子代币的费用。"><td><code>/claimhigh</code></td><td>领取 10000 BONE 池子费用</td></tr>
-                    <tr data-details="查看你的钱包和代币统计信息。"><td><code>/myinfo</code></td><td>查看资料</td></tr>
-                    <tr data-details="列出所有可用命令。"><td><code>/help</code></td><td>显示所有命令</td></tr>
+                    <tr data-details="部署低风险迷因币，机器人自动添加流动性（例如：/deploylow MyCoin MC）。"><td><code>/deploylow <名称> <符号></code></td><td>部署低风险迷因币</td></tr>
+                    <tr data-details="部署高风险迷因币，机器人自动添加流动性（例如：/deployhigh BigCoin BC）。"><td><code>/deployhigh <名称> <符号></code></td><td>部署高风险迷因币</td></tr>
+                    <tr data-details="领取低风险迷因币的费用。"><td><code>/claimfeeslow</code></td><td>领取低风险迷因币费用</td></tr>
+                    <tr data-details="领取高风险迷因币的费用。"><td><code>/claimfeeshigh</code></td><td>领取高风险迷因币费用</td></tr>
+                    <tr data-details="跟踪代币（例如：/addtoken 0x...）。"><td><code>/addtoken <地址></code></td><td>添加代币跟踪</td></tr>
+                    <tr data-details="查看你的钱包和代币统计信息。"><td><code>/userinfo</code></td><td>查看资料</td></tr>
+                    <tr data-details="列出所有可用命令。"><td><code>/start</code></td><td>显示所有命令</td></tr>
                 </table>
             </div>
             <div class="section">
                 <h2 class="bone-icon">小贴士</h2>
                 <div class="tip-box">
                     <p>- 交易前核对代币地址！</p>
-                    <p>- 钱包从 <b>@ShibFun_bot</b> 同步，需约 24 小时更新。</p>
-                    <p>- 在 Telegram 用 <code>/help</code> 获取帮助。</p>
+                    <p>- 在机器人设置中安全导入你的私钥。</p>
+                    <p>- 在 Telegram 用 <code>/start</code> 获取帮助。</p>
                     <p>- 遇到问题？联系 <b>@luisaiagent_bot</b> 管理员！</p>
                 </div>
             </div>
@@ -381,13 +401,13 @@
             if (lang === "en") {
                 enContent.classList.remove("hidden");
                 zhContent.classList.add("hidden");
-                title.textContent = "LuisaIAgent Bot Guide";
+                title.textContent = "LuisaSwap Bot Guide";
                 langEnBtn.classList.add("active");
                 langZhBtn.classList.remove("active");
             } else {
                 enContent.classList.add("hidden");
                 zhContent.classList.remove("hidden");
-                title.textContent = "LuisaIAgent Bot 使用指南";
+                title.textContent = "LuisaSwap Bot 使用指南";
                 langEnBtn.classList.remove("active");
                 langZhBtn.classList.add("active");
             }
